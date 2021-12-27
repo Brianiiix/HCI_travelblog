@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Overlays Within Street View</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="./styles/post.css" />
+    <script src="./post.js"></script>
+  </head>
+  <body>
+    <div id="floating-panel">
+      <input type="button" value="Toggle Street View" id="toggle" />
+    </div>
+    <div id="floating-panel2">
+      <input type="button" value="Place Image" id="place" />
+    </div>
+    <div id="post">
+        <div id="map"></div>
+
+        <div id="content">
+            <h1>Hi</h1>
+            <img id="img1" src="https://images.unsplash.com/photo-1468136020796-0eec5226a897?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3RyZWV0JTIwdmlld3xlbnwwfHwwfHw%3D&w=1000&q=80"></img>
+            <span class="text">
+                With over 7,000 years of fascinating history, traditions and culture the emirate of Ras Al Khaimah (just 45 minutes from Dubai) offers an authentic and easily accessible Arabian experience. Ras Al Khaimah is a nature-driven destination of sprawling deserts, beaches and stunning mountain landscapes and is one of seven emirates that together comprise the United Arab Emirates (UAE).  
+If you’re planning a trip, here’s our pick of the top 8 things to see and do.  
+            </span>
+            <img id="img2" src="https://images.unsplash.com/photo-1532555312469-50ad17bdd141?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3RyZWV0JTIwdmlldyUyMGF0JTIwbmlnaHR8ZW58MHx8MHx8&w=1000&q=80"></img>
+            <br>
+            <span class="text">
+                enjoyed the drive along the switchback road which snakes up the mountain delivering vistas of barren, eroded cliffs and deep canyons on every bend with The Jais Viewing Deck Park being the perfect place to stop and unwind, to take a few photos of the view and admire instead the daredevils taking the Jebel Jais flight. 
+
+                The Jais Zipline Sky Tour offers an alternative experience, covering a total distance of 5 km via a series of 6 ziplines in the more traditional zip line seated position as opposed to the superman pose adopted in the Jais flight.
+            </span>
+        </div>
+    </div>
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiAgQ28bLgtCaVPZTtxiH-CkrGqii8muQ&callback=init&v=weekly"
+      async
+    ></script>
+  </body>
+</html>

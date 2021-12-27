@@ -35,7 +35,8 @@ window.init = function initMap() {
 
   document.getElementById("toggle").addEventListener("click", toggleStreetView);
   document.getElementById("place").addEventListener("click", placeImage);
-  document.getElementById("content").addEventListener("scroll", checkStreetview_Img1)
+  document.getElementById("content").addEventListener("scroll", checkStreetview_Img)
+
 
 
   // Set up the markers on the map
@@ -110,8 +111,8 @@ window.init = function initMap() {
   panorama.setPov(
     /** @type {google.maps.StreetViewPov} */
     {
-      heading: 100,
-      pitch: 50,
+      heading: 210,
+      pitch: 0,
     }
   );
 }
@@ -128,6 +129,7 @@ function toggleStreetView() {
     shouldFocus: false,
   });
 
+
   infowindow2.open({
     position: {
       lat: 40.729559,
@@ -136,8 +138,6 @@ function toggleStreetView() {
     map: panorama,
     shouldFocus: false,
   });
-
-  console.log(infowindow.position.lat())
 
 
   if (toggle == false) {
@@ -192,29 +192,58 @@ function placeImage() {
   
 }
 
-let fuck = true;
-function checkStreetview_Img1(){
-    const img1 = document.getElementById("img1");
-    const dist = 0.0003;
-    const lat = infowindow.position.lat();
-    const heading = Math.acos((lat - 40.729884) / dist ) / Math.PI * 180;
+let img1Pos = true;
+let img2Pos = true;
 
-    if (fuck){
+function checkStreetview_Img(){
+    const img1 = document.getElementById("img1");
+    const img2 = document.getElementById("img2");
+
+    if (img1Pos){
         if (img1.getBoundingClientRect().top <= 0){
-            fuck = false;
-            panorama.setPov({
-                heading : heading,
-                pitch : 0
-            })
+            img1Pos = false;
+            switchPov(infowindow.position.lat(), infowindow.position.lng());
         } 
     }else{
         if (img1.getBoundingClientRect().top >= 0){
-            fuck = true;
-            panorama.setPov({
-                heading : heading,
-                pitch : 0
-            })
+            img1Pos = true;
+            switchPov(infowindow.position.lat(), infowindow.position.lng());
+
         } 
     }
 
+    if (img2Pos){
+        if (img2.getBoundingClientRect().top <= 0){
+            img2Pos = false;
+            switchPov(infowindow2.position.lat(), infowindow2.position.lng());
+        } 
+    }else{
+        if (img2.getBoundingClientRect().top >= 0){
+            img2Pos = true;
+            switchPov(infowindow2.position.lat(), infowindow2.position.lng());
+
+        } 
+    }
+
+}
+
+function switchPov(lat, lng){
+
+    const lng_temp = lng - (-73.990964);
+    const lat_temp = lat - 40.7298679;
+
+    console.log(lng_temp/lat_temp)
+    console.log(Math.atan(lng_temp/lat_temp))
+    const heading = 180 - (Math.atan(lng_temp/lat_temp) / Math.PI) * 180 ;
+
+    console.log(heading)
+    const visible = panorama.getVisible();
+    if (!visible){
+        panorama.setVisible(true);
+    }
+    
+    panorama.setPov({
+        heading : heading,
+        pitch : 0
+    })
 }

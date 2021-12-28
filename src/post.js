@@ -121,23 +121,25 @@ function toggleStreetView() {
   const toggle = panorama.getVisible();
 
   infowindow.open({
-    position: {
-      lat: 40.729681,
-      lng: -73.991138
-    },
+    // position: {
+    //   lat: 40.729681,
+    //   lng: -73.991138
+    // },
     map: panorama,
     shouldFocus: false,
   });
 
 
   infowindow2.open({
-    position: {
-      lat: 40.729559,
-      lng: -73.990741
-    },
+    // position: {
+    //   lat: 40.729559,
+    //   lng: -73.990741
+    // },
     map: panorama,
     shouldFocus: false,
   });
+
+  console.log("img2 toggle",infowindow2.position.lat(), infowindow2.position.lng());
 
 
   if (toggle == false) {
@@ -167,6 +169,7 @@ function placeImage() {
     },
     content: contentString,
   });
+
   infowindow.open({
 /*     position: {
       lat: lat,
@@ -202,6 +205,8 @@ function checkStreetview_Img(){
     if (img1Pos){
         if (img1.getBoundingClientRect().top <= 0){
             img1Pos = false;
+            console.log("img1 bind",infowindow.position.lat(), infowindow.position.lng());
+
             switchPov(infowindow.position.lat(), infowindow.position.lng());
         } 
     }else{
@@ -215,6 +220,7 @@ function checkStreetview_Img(){
     if (img2Pos){
         if (img2.getBoundingClientRect().top <= 0){
             img2Pos = false;
+            console.log("img2 bind",infowindow2.position.lat(), infowindow2.position.lng());
             switchPov(infowindow2.position.lat(), infowindow2.position.lng());
         } 
     }else{
@@ -232,8 +238,6 @@ function switchPov(lat, lng){
     const lng_temp = lng - (-73.990964);
     const lat_temp = lat - 40.7298679;
 
-    console.log(lng_temp/lat_temp)
-    console.log(Math.atan(lng_temp/lat_temp))
     const heading = 180 - (Math.atan(lng_temp/lat_temp) / Math.PI) * 180 ;
 
     console.log(heading)

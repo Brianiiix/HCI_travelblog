@@ -1,7 +1,6 @@
 document.getElementById("write").addEventListener("click", write);
 
 function write() {
-    alert(tinyMCE.activeEditor.getContent());
-    var myContent = tinymce.activeEditor.getContent({ format: 'text' });
+    var myContent = tinyMCE.activeEditor.getContent();
     if(myContent) console.log(myContent);
 }

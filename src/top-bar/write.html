@@ -3,13 +3,16 @@
     <head>
         <title>Draft</title>
         <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/post.css">
         <link rel="stylesheet" href="../styles/continent-color.css">
         <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
         <script src="https://cdn.tiny.cloud/1/ee6ssolafrfz0k31hrghq8kzlqgbg6hp1bvtw4dsll5o97xw/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+        <script type="module" src="../write.js"></script>
         <script>
             tinymce.init({
                 selector: 'textarea',
-                height: '100vh',
+                height: '100%',
                 toolbar: 'image',
                 plugins: 'image imagetools',
                 file_picker_types: 'image',
@@ -68,65 +71,98 @@
                 <div class='write-bottom'><input type="button" value="Post" id="write"/></div>
             </ul>
         </nav>
-        <nav>
-            <form method="post">
-                <p id="content"></p>
+        <nav id='post'>
+            <div id="floating-panel3">
+                <input type="button" value="Toggle Street View" id="toggle" />
+            </div>
+            <div id="floating-panel5">
+                <input type="button" value="Place Image" id="place" />
+            </div>
+            <div id="floating-panel6">
+                <input type="text" id="img-id"/>
+            </div>
+            <script>
+                var img;
+                function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            img = e.target.result;
+                        };
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+            </script>
+            <div id="floating-panel4">
+                img: <input type="file" id="img-file" onchange="readURL(this);"/>
+            </div>
+            <div id="map"></div>
+            <form method="post" style="width: 50%;">
+                <div id='title'>
+                    Title: <input type="text" name="title" id="title-input" required>
+                </div>
                 <textarea id="textarea" name="textarea">
                     type
                 </textarea>
             </form>
         </nav>
-        <script src="../write.js"></script>
-        <script type="module">
-            // Import the functions you need from the SDKs you need
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-            import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
-            import { getDatabase, ref, set, child, get } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-            // TODO: Add SDKs for Firebase products that you want to use
-            // https://firebase.google.com/docs/web/setup#available-libraries
-          
-            // Your web app's Firebase configuration
-            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-            const firebaseConfig = {
-              apiKey: "AIzaSyBcObansUTMHQbyu_Dti9Hr-UzSlNTNwmg",
-              authDomain: "hci-travelblog.firebaseapp.com",
-              projectId: "hci-travelblog",
-              storageBucket: "hci-travelblog.appspot.com",
-              messagingSenderId: "172441244326",
-              appId: "1:172441244326:web:862b7732a2747e94091a67",
-              measurementId: "G-Z066N4FFX5",
-              databaseURL: "https://hci-travelblog-default-rtdb.firebaseio.com/"
-            };
-          
-            // Initialize Firebase
-            const app = initializeApp(firebaseConfig);
-            const analytics = getAnalytics(app);
-            const database = getDatabase(app);
-
-            document.getElementById("write").addEventListener("click", write);
-            document.getElementById("read").addEventListener("click", read);
-
-            function write() {
-                var myContent = tinyMCE.activeEditor.getContent();
-                if(myContent) console.log(myContent);
-                set(ref(database, '/'), {
-                    content: myContent
+        <script>
+            var coordinate;
+            var panorama;
+            var infoWindow;
+            function initMap() {
+                const myLatlng = { lat: 24.78910214115866, lng: 120.99981627824175 };
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 18,
+                    center: myLatlng,
                 });
-            }
+                // Create the initial InfoWindow.
+                infoWindow = new google.maps.InfoWindow({
+                    content: "Click the map to set Lat/Lng!",
+                    position: myLatlng,
+                });
 
-            function read() {
-                const dbRef = ref(getDatabase());
-                get(child(dbRef, `/`)).then((snapshot) => {
-                    if (snapshot.exists()) {
-                        document.getElementById("content").innerHTML = snapshot.val().content;
-                        console.log(snapshot.val());
-                    } else {
-                        console.log("No data available");
+                panorama = new google.maps.StreetViewPanorama(
+                    document.getElementById('map'), {
+                        position: {
+                            lat: 24,
+                            lng: 120
+                        },
+                        pov: {
+                            heading: 165,
+                            pitch: 0
+                        },
+                        motionTracking: false,
+                        motionTrackingControl: false,
+                        panControl: false,
                     }
-                }).catch((error) => {
-                    console.error(error);
+                );
+                panorama.setVisible(false);
+                    
+                infoWindow.open(map);
+                // Configure the click listener.
+                map.addListener("click", (mapsMouseEvent) => {
+                    coordinate = mapsMouseEvent.latLng;
+                    // Close the current InfoWindow.
+                    infoWindow.close();
+                    // Create a new InfoWindow.
+                    infoWindow = new google.maps.InfoWindow({
+                        position: mapsMouseEvent.latLng,
+                    });
+                    infoWindow.setContent(
+                        JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+                    );
+                    infoWindow.open(map);
                 });
+
+                
             }
         </script>
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiAgQ28bLgtCaVPZTtxiH-CkrGqii8muQ&callback=initMap&v=weekly"
+            async
+        ></script>
     </body>
 </html>

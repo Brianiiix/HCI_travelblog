@@ -64,3 +64,7 @@ margin-left: -100px;
 .text {
     font-size: 1.5em;
 }
+
+#read > p {
+    font-size: 1.5em;
+}

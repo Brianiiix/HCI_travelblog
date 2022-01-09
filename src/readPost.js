@@ -39,10 +39,9 @@ function bindStreetview(){
 let infowindow;
 function switchStreetview(angle, lat, lng, img) {
   if (infowindow != null){
-    infowindow.close
+    infowindow.close();
   };
 
-  console.log(angle, lat, lng)
   window.panorama.setPosition({
     lat: lat , 
     lng: lng
@@ -57,7 +56,6 @@ function switchStreetview(angle, lat, lng, img) {
   let lat_y = 0.0002 * Math.sin(angle);
   let lng_x = 0.0002 * Math.cos(angle);
 
-  console.log(angle, lat_y, lng_x);
   infowindow = new google.maps.InfoWindow({
     position: {
       lat: lat + lat_y,

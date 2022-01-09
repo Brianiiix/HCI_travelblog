@@ -5,8 +5,8 @@ function toggleStreetView() {
     const toggle = panorama.getVisible();
     if (toggle == false) {
       panorama.setPosition({
-        lat: coordinate.lat(),
-        lng: coordinate.lng()
+        lat: panorama.getPosition().lat(),
+        lng: panorama.getPosition().lng()
       });
       panorama.setVisible(true);
     } else {
@@ -96,6 +96,9 @@ function write() {
     else{
       set(ref(database, '/' + title + '/content'), {
           content: myContent
+      }).then(()=>{
+        alert("Your story has been published!");
+        window.location.replace("./draft.html");
       });
     }
 }

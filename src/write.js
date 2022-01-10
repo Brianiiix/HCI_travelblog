@@ -52,6 +52,8 @@ function placeImage() {
     set(ref(database, '/' + title + '/img/' + id), {
       lat: lat,
       lng: lng,
+      streetview_lat: panorama.getPosition().lat(),
+      streetview_lng: panorama.getPosition().lng(),
       angle: angle,
       img: img,
     });

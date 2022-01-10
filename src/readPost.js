@@ -105,3 +105,4 @@ function getPost() {
   });
 }
 
+window.onload = getPost();

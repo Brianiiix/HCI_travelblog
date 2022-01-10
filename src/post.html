@@ -63,9 +63,15 @@
         }
         return "";
       }
+     
+      // const title = url.searchParams.get("title");
 
-      var href = '../post.html'
+      var u = new URL(window.location.href);
+      var title = u.searchParams.get("title");
+
+      var href = '../post.html?title=' + title
       var url = '../../img/1.jpg'
+      // alert(getCookie('favorites'))
       if (getCookie('favorites').includes(href)) // already added to favorites
       {
         document.getElementById("add_to_favorite").remove()

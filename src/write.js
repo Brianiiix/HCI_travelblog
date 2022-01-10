@@ -5,8 +5,8 @@ function toggleStreetView() {
     const toggle = panorama.getVisible();
     if (toggle == false) {
       panorama.setPosition({
-        lat: panorama.getPosition().lat(),
-        lng: panorama.getPosition().lng()
+        lat: coordinate.lat(),
+        lng: coordinate.lng()
       });
       panorama.setVisible(true);
     } else {

@@ -29,7 +29,7 @@ function bindStreetview(){
   const img_all = post_body.getElementsByTagName("img")
   for (let i=0 ; i < img_all.length ; i++){
     if ( Math.abs(img_all[i].getBoundingClientRect().top - 71) < 5){
-      findStreetviewAll(post_content.img[i].angle, post_content.img[i].lat, post_content.img[i].lng, post_content.img[i].img )
+      findStreetviewAll(post_content.img[i+1].angle, post_content.img[i+1].lat, post_content.img[i+1].lng, post_content.img[i+1].img )
     }
   }
 }
@@ -103,6 +103,7 @@ function switchStreetview(angle, lat, lng, img, otherImg) {
 
 document.getElementById("button").addEventListener("click", getPost);
 function getPost() {
+  console.log("second")
   const content = document.getElementById("content");
 
   const url = new URL(window.location.href);
@@ -122,17 +123,16 @@ function getPost() {
 
           window.post_content = snapshot.val()[title];
           window.post_body = post;
-          console.log(snapshot.val())
 
           const img_all = post_body.getElementsByTagName("img")
+          findStreetviewAll(post_content.img[1].angle, post_content.img[1].lat, post_content.img[1].lng, post_content.img[1].img);
 
-          console.log(img_all)
           for (let i=0 ; i<img_all.length ; i++){
             img_all[i].addEventListener("click", event => {
-              const angle = post_content.img[i].angle;
-              const lat = post_content.img[i].lat;
-              const lng = post_content.img[i].lng;
-              const img = post_content.img[i].img;
+              const angle = post_content.img[i+1].angle;
+              const lat = post_content.img[i+1].lat;
+              const lng = post_content.img[i+1].lng;
+              const img = post_content.img[i+1].img;
               findStreetviewAll(angle, lat, lng, img);
             });
           }

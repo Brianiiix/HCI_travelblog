@@ -4,6 +4,7 @@ let infowindow2;
 let map;
 
 window.init = function initMap() {
+  console.log("first")
   window.panorama = new google.maps.StreetViewPanorama(
     document.getElementById('map'), {
       position: {

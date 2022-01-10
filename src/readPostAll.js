@@ -19,7 +19,10 @@ const analytics = getAnalytics(app);
 const database = getDatabase(app);
 
 
-window.onload = function readAll(){
+
+
+document.getElementById("backup").addEventListener("click", readAll);
+function readAll(){
     const dbRef = ref(getDatabase());
     get(child(dbRef, `/`)).then((snapshot) => {
         if (snapshot.exists()) {
@@ -43,3 +46,5 @@ window.onload = function readAll(){
         console.error(error);
     });
 }
+
+window.onload =readAll();

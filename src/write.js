@@ -21,7 +21,8 @@ function placeImage() {
   const lng = panorama.getPosition().lng() + Math.sin(angle/180*Math.PI) * dist;
 
   const contentString = '<img src="https://images.unsplash.com/photo-1468136020796-0eec5226a897?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3RyZWV0JTIwdmlld3xlbnwwfHwwfHw%3D&w=1000&q=80" style="width:128px;"></img>';
-  img = "<img width=\"200px\" src=\"" + img + "\"/>"
+  let orig_img = img;
+  img = "<img width=\"150px\" src=\"" + img + "\"/>"
   let infowindow = new google.maps.InfoWindow({
     position: {
       lat: lat,
@@ -55,6 +56,7 @@ function placeImage() {
       img: img,
     });
   }
+  img = orig_img;
 }
 
 

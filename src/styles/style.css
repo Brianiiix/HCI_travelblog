@@ -1,8 +1,9 @@
 .top-bar {
+    display: flex;
     font-size: xx-large;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    padding: 0;
-    padding-left: 10px;
+    padding-right: 0;
+    padding-left: 50px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
@@ -13,12 +14,19 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
+#home-box {
+    position: fixed;
+    left: 10px;
+    top: 16px;
+}
+
 html, body {
     margin: 0;
     padding: 0;
 }
 
 nav ul {
+    padding: 0;
     margin: 0;
 }
 
@@ -71,11 +79,15 @@ nav a:hover {
 }
 
 .write-bottom {
-    float: right!important;
-    padding: 8px 10px;
+    position: fixed;
+    align-items: center;
+    padding: 9.5px 10px;
+    right: 1px;
+    top: 0px;
 }
 
 #write {
+    align-items: center;
     padding: .6em 2em;
     font-size: 20px;
     border-radius: 8px;
@@ -153,4 +165,10 @@ nav a:hover {
 
 #img-file {
     width: 70px;
+}
+
+#add_to_favorite {
+    position: fixed;
+    right: 10px;
+    top: 20px;
 }

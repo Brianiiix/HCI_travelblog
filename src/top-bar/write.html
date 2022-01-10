@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Draft</title>
+        <title>Write</title>
         <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/post.css">
         <link rel="stylesheet" href="../styles/continent-color.css">
@@ -60,16 +60,16 @@
     </head>
     <body>
         <nav>
+            <a href="../index.html">
+                <box-icon name='home' size='md' id="home-box"></box-icon>
+            </a>
             <ul class="top-bar">
-                <a href="../index.html" text-decoration: none;>
-                    <box-icon name='home' size='md'></box-icon>
-                </a>
-                <li><a class="top-bar-sel">Write</a></li>
-                <li><a href="draft.html", class="top-bar-sel">Postss</a></li>
-                <li><a href="favorite.html", class="top-bar-sel">Favorites</a></li>
-                <div class='write-bottom'><input type="button" value="read" id="read"/></div>
-                <div class='write-bottom'><input type="button" value="Publish" id="write"/></div>
+                <a class="top-bar-sel">Write</a>
+                <a href="draft.html", class="top-bar-sel">Posts</a>
+                <a href="favorite.html", class="top-bar-sel">Favorites</a>
+                <!-- <div class='write-bottom'><input type="button" value="read" id="read"/></div> -->
             </ul>
+            <div class='write-bottom'><input type="button" value="Publish" id="write"/></div>
         </nav>
         <nav id='post'>
             <div id="floating-panel3">
@@ -104,7 +104,7 @@
                     Title: <input type="text" name="title" id="title-input" required>
                 </div>
                 <textarea id="textarea" name="textarea">
-                    type
+                    
                 </textarea>
             </form>
         </nav>

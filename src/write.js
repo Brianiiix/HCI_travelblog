@@ -96,6 +96,9 @@ function write() {
     else{
       set(ref(database, '/' + title + '/content'), {
           content: myContent
+      }).then(()=>{
+        alert("Your story has been published!");
+        window.location.replace("./draft.html");
       });
     }
 }

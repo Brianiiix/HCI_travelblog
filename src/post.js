@@ -4,10 +4,11 @@ let infowindow2;
 let map;
 
 window.init = function initMap() {
+  console.log("first")
   window.panorama = new google.maps.StreetViewPanorama(
     document.getElementById('map'), {
       position: {
-        lat: 24.784765583240425,
+        lat: 24.786765583240425,
         lng: 120.99754017862084
       },
       pov: {

@@ -89,7 +89,6 @@ const analytics = getAnalytics(app);
 const database = getDatabase(app);
 
 document.getElementById("write").addEventListener("click", write);
-document.getElementById("read").addEventListener("click", read);
 
 function write() {
     var myContent = tinyMCE.activeEditor.getContent();

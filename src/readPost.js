@@ -29,28 +29,14 @@ function bindStreetview(){
   const img_all = post_body.getElementsByTagName("img")
   for (let i=0 ; i < img_all.length ; i++){
     if ( Math.abs(img_all[i].getBoundingClientRect().top - 71) < 5){
-      // findStreetviewAll(post_content.img[i+1].angle, post_content.img[i+1].lat, post_content.img[i+1].lng, post_content.img[i+1].img, post_content.img[i+1].streetview_lat, post_content.img[i+1].streetview_lng )
-      setStreetview(post_content.img[i+1].angle, post_content.img[i+1].streetview_lat, post_content.img[i+1].streetview_lng)
+      if (post_content.img[i+1] !== undefined){
+        setStreetview(post_content.img[i+1].angle, post_content.img[i+1].streetview_lat, post_content.img[i+1].streetview_lng)
+      }
     }
   }
 }
 
-// function findStreetviewAll(angle, lat, lng, img, streetview_lat, streetview_lng){
-//   let otherImg = post_content.img.filter(element => {(Math.abs(element.streetview_lat - streetview_lat) < 0.0001) && (Math.abs(element.streetview_lng - streetview_lng) < 0.0001) && (element.img !== img)})
-//   const infowindowLength = otherImg.length;
-//   switchStreetview(angle, lat, lng, img, otherImg, streetview_lat, streetview_lng);
-// }
-
 function setStreetview(angle, streetview_lat, streetview_lng) {
-  // if (infowindow != null){
-  //   console.log(infowindow)
-  //   for(let i=0 ; i<infowindowLength ; i++){
-  //     console.log(i)
-  //     infowindow[i].close();
-  //   }
-  // };
-
-  console.log(streetview_lat, streetview_lng)
   window.panorama.setPosition({
     lat: streetview_lat,
     lng: streetview_lng
@@ -60,39 +46,6 @@ function setStreetview(angle, streetview_lat, streetview_lng) {
     heading: angle, 
     pitch: 0
   });
-
-  // angle = (90 - angle) * (Math.PI / 180);
-  // let lat_y = 0.0003 * Math.sin(angle);
-  // let lng_x = 0.0003 * Math.cos(angle);
-
-  // infowindow[0] = new google.maps.InfoWindow({
-  //   position: {
-  //     lat: lat,
-  //     lng: lng
-  //   },
-  //   content: img ,
-  //   shouldFocus: false
-  // })
-
-  // infowindow[0].open({
-  //   map: panorama
-  // })
-
-  // let count = 1;
-  // otherImg.forEach( element => {
-  //   infowindow[count] = new google.maps.InfoWindow({
-  //     position: {
-  //       lat: element.lat,
-  //       lng: element.lng
-  //     },
-  //     content: element.img ,
-  //     shouldFocus: false
-  //   })
-
-  //   infowindow[count].open({
-  //     map: panorama
-  //   })
-  // })
 }
 
 let infowindow={};
@@ -141,14 +94,16 @@ function getPost() {
           const img_all = post_body.getElementsByTagName("img")
           initStreetviewAll();
 
+          console.log(post_content)
           for (let i=0 ; i<img_all.length ; i++){
-            img_all[i].addEventListener("click", event => {
-              const angle = post_content.img[i+1].angle;
-              const lat = post_content.img[i+1].streetview_lat;
-              const lng = post_content.img[i+1].streetview_lng;
-              const img = post_content.img[i+1].img;
-              setStreetview(angle, lat, lng, img);
-            });
+            if (post_content.img[i+1] !== undefined){
+              img_all[i].addEventListener("click", event => {
+                const angle = post_content.img[i+1].angle;
+                const lat = post_content.img[i+1].streetview_lat;
+                const lng = post_content.img[i+1].streetview_lng;
+                setStreetview(angle, lat, lng);
+              });
+            }
           }
           
           setStreetview(post_content.img[1].angle, post_content.img[1].streetview_lat, post_content.img[1].streetview_lng);
